@@ -1,19 +1,41 @@
-h1{
-    text-align: center;
-    color: wheat;
+html,
+body {
+  background-color: #daddb1;
 }
-    body {
-    background-color: #333;
-    text-align: center;
+.submit_btn {
+  background-color: #b3a492;
+  color: white;
 }
-    #images{
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        grid-gap: 0;
-        justify-content: center;
-        align-items: center;
-    }
-    #images img {
-        width: 200;
-        height: 200;
-    }
+.input_guess {
+  background-color: #b3a492;
+  width: 50vh;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.header-font {
+  font-family: "Kanit", sans-serif;
+  font-size: 6rem;
+}
+
+.inputAndSubmit {
+  font-size: 3rem;
+  font-family: "Roboto", sans-serif;
+}
+.for-content-img {
+  height: 550px;
+  width: 800px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4rem;
+  position: relative;
+}
+#image_pic {
+  border: solid 10px black;
+  display: relative;
+}
+#result {
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+}
