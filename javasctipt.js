@@ -1,3 +1,54 @@
+const wordsArray = [
+  "apple",
+  "run",
+  "book",
+  "jump",
+  "chair",
+  "swim",
+  "dog",
+  "eat",
+  "car",
+  "write",
+  "phone",
+  "sing",
+  "pen",
+  "dance",
+  "shoes",
+  "sleep",
+  "ball",
+  "read",
+  "computer",
+  "work",
+  "guitar",
+  "play",
+  "table",
+  "walk",
+  "bicycle",
+  "talk",
+  "cat",
+  "listen",
+  "hat",
+  "laugh",
+  "flower",
+  "study",
+  "garden",
+  "cook",
+  "key",
+  "clean",
+  "bike",
+  "run",
+  "clock",
+  "draw",
+  "globe",
+  "fly",
+  "house",
+  "paint",
+  "tree",
+  "climb",
+  "television",
+  "build",
+];
+
 const imageSets = [
   {
     images: [
@@ -25,12 +76,36 @@ let currentSetIndex = 0;
 function loadImages() {
   let i = 0;
   const images = document.getElementById("images");
-  // images.innerHTML = "";
+  const currentSet_arr = wordsArray[currentSetIndex];
   const image_pic = document.querySelectorAll("#image_pic");
   console.log(image_pic);
+  fetch(
+    `https://api.unsplash.com/search/photos?page=1&query=${currentSet_arr}&per_page=4&client_id=E2oXfV1trMWHkGwoGLdOVoQpjS_TRT5nLe4t0NI9X44`,
+    {
+      method: "GET",
+    }
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      data.results.forEach((element) => {
+        image_pic[i].src = element.urls.regular;
+
+        i++;
+      });
+      console.log(data.results[i]);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  // images.innerHTML = "";
+
+  /*
   const currentSet = imageSets[currentSetIndex];
-  currentSet.images.forEach((imageSrc) => {
-    console.log(imageSrc);
+
+
+currentSet.images.forEach((imageSrc) => {
     image_pic[i].src = imageSrc;
     i++;
 
@@ -39,8 +114,8 @@ function loadImages() {
     img.src = imageSrc;
     img.alt = "Image";
     images.appendChild(img);
-    */
-  });
+    
+  }); */
 }
 
 function checkGuess() {
@@ -48,12 +123,14 @@ function checkGuess() {
   const result = document.getElementById("result");
   const userGuess = guessInput.value.toLowerCase();
 
+  const currentSet_arr = wordsArray[currentSetIndex];
+
   const currentSet = imageSets[currentSetIndex];
-  if (userGuess === currentSet.correctWord) {
+  if (userGuess === currentSet_arr) {
     result.textContent = "Correct! You guessed the word.";
     guessInput.value = "";
     currentSetIndex++;
-    if (currentSetIndex < imageSets.length) {
+    if (currentSetIndex < wordsArray.length) {
       loadImages();
     } else {
       result.textContent = "Congratulations! You've completed all sets.";
@@ -65,3 +142,9 @@ function checkGuess() {
 
 // Load the initial set of images
 loadImages();
+
+function showanswer() {
+  const result = document.getElementById("result");
+  const currentSet_arr = wordsArray[currentSetIndex];
+  result.textContent = `The answer is ${currentSet_arr}`;
+}
