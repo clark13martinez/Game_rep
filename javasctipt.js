@@ -1,53 +1,58 @@
 const wordsArray = [
-  "apple",
-  "run",
-  "book",
-  "jump",
-  "chair",
-  "swim",
-  "dog",
-  "eat",
-  "car",
-  "write",
-  "phone",
-  "sing",
-  "pen",
-  "dance",
-  "shoes",
-  "sleep",
-  "ball",
-  "read",
-  "computer",
-  "work",
-  "guitar",
-  "play",
-  "table",
-  "walk",
-  "bicycle",
-  "talk",
-  "cat",
-  "listen",
-  "hat",
-  "laugh",
-  "flower",
-  "study",
-  "garden",
-  "cook",
-  "key",
-  "clean",
-  "bike",
-  "run",
-  "clock",
-  "draw",
-  "globe",
-  "fly",
-  "house",
-  "paint",
-  "tree",
-  "climb",
-  "television",
-  "build",
+  "Hydrogen",
+  "Helium",
+  "Lithium",
+
+  "Boron",
+  "Carbon",
+  "Nitrogen",
+  "Oxygen",
+
+  "Neon",
+  "Sodium",
+  "Magnesium",
+  "Aluminum",
+  "Silicon",
+
+  "Sulfur",
+  "Chlorine",
+  "Argon",
+  "Potassium",
+  "Calcium",
+
+  "Titanium",
+
+  "Chromium",
+
+  "Iron",
+  "Cobalt",
+  "Nickel",
+  "Copper",
+  "Zinc",
+
+  "Krypton",
+
+  "Zirconium",
+
+  "Palladium",
+  "Silver",
+  "Gold",
+  "Silver",
+
+  "Lead",
+  "Mercury",
+  "Tin",
+  "Aluminum",
+  "Potassium",
+  "Sodium",
+  "Platinum",
+  "Uranium",
+  "Neon",
+
+  "Iodine",
 ];
+
+// You can continue this array to include more periodic table elements.
 
 const imageSets = [
   {
@@ -126,7 +131,7 @@ function checkGuess() {
   const currentSet_arr = wordsArray[currentSetIndex];
 
   const currentSet = imageSets[currentSetIndex];
-  if (userGuess === currentSet_arr) {
+  if (userGuess === currentSet_arr.toLowerCase()) {
     result.textContent = "Correct! You guessed the word.";
     guessInput.value = "";
     currentSetIndex++;
