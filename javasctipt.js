@@ -76,12 +76,13 @@ const imageSets = [
   // Add more image sets here
 ];
 
-let currentSetIndex = 0;
+let currentSetIndex = Math.floor(Math.random() * wordsArray.length);
 
 function loadImages() {
   let i = 0;
   const images = document.getElementById("images");
   const currentSet_arr = wordsArray[currentSetIndex];
+
   const image_pic = document.querySelectorAll("#image_pic");
   console.log(image_pic);
   fetch(
@@ -134,8 +135,10 @@ function checkGuess() {
   if (userGuess === currentSet_arr.toLowerCase()) {
     result.textContent = "Correct! You guessed the word.";
     guessInput.value = "";
-    currentSetIndex++;
-    if (currentSetIndex < wordsArray.length) {
+    currentSetIndex = Math.floor(Math.random() * wordsArray.length);
+    wordsArray.splice(currentSet_arr, 1);
+    console.log(wordsArray);
+    if (wordsArray.length > 0) {
       loadImages();
     } else {
       result.textContent = "Congratulations! You've completed all sets.";
@@ -151,5 +154,14 @@ loadImages();
 function showanswer() {
   const result = document.getElementById("result");
   const currentSet_arr = wordsArray[currentSetIndex];
-  result.textContent = `The answer is ${currentSet_arr}`;
+  wordsArray.splice(currentSet_arr, 1);
+  console.log(wordsArray);
+  result.textContent = `The answer is ${currentSet_arr}, wait for the next question`;
+  setTimeout(function () {
+    loadImages();
+    result.textContent = `Okay try your best again`;
+  }, 2000);
+  if (wordsArray.length <= 0) {
+    result.textContent = `Congratulations you answer all 50 elements`;
+  }
 }
