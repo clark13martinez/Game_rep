@@ -1,4 +1,4 @@
-const wordsArray = [
+let wordsArray = [
   "Hydrogen",
   "Helium",
   "Lithium",
@@ -77,14 +77,16 @@ const imageSets = [
 ];
 
 let currentSetIndex = Math.floor(Math.random() * wordsArray.length);
-
 function loadImages() {
   let i = 0;
+  currentSetIndex = Math.floor(Math.random() * wordsArray.length);
+  console.log(currentSetIndex);
   const images = document.getElementById("images");
   const currentSet_arr = wordsArray[currentSetIndex];
 
   const image_pic = document.querySelectorAll("#image_pic");
-  console.log(image_pic);
+  console.log(wordsArray);
+
   fetch(
     `https://api.unsplash.com/search/photos?page=1&query=${currentSet_arr}&per_page=4&client_id=E2oXfV1trMWHkGwoGLdOVoQpjS_TRT5nLe4t0NI9X44`,
     {
@@ -131,12 +133,14 @@ function checkGuess() {
 
   const currentSet_arr = wordsArray[currentSetIndex];
 
+  const data_remmove = wordsArray[currentSetIndex];
   const currentSet = imageSets[currentSetIndex];
   if (userGuess === currentSet_arr.toLowerCase()) {
     result.textContent = "Correct! You guessed the word.";
     guessInput.value = "";
     currentSetIndex = Math.floor(Math.random() * wordsArray.length);
-    wordsArray.splice(currentSet_arr, 1);
+    // wordsArray.splice(data_remmove, 1);
+    wordsArray = wordsArray.filter((item) => item !== data_remmove);
     console.log(wordsArray);
     if (wordsArray.length > 0) {
       loadImages();
@@ -154,14 +158,19 @@ loadImages();
 function showanswer() {
   const result = document.getElementById("result");
   const currentSet_arr = wordsArray[currentSetIndex];
-  wordsArray.splice(currentSet_arr, 1);
+  const data_remmove = wordsArray[currentSetIndex];
+  //wordsArray.splice(data_remmove, 1);
+  console.log(data_remmove);
   console.log(wordsArray);
+  wordsArray = wordsArray.filter((item) => item !== data_remmove);
   result.textContent = `The answer is ${currentSet_arr}, wait for the next question`;
-  setTimeout(function () {
-    loadImages();
-    result.textContent = `Okay try your best again`;
-  }, 2000);
+
   if (wordsArray.length <= 0) {
     result.textContent = `Congratulations you answer all 50 elements`;
+  } else {
+    setTimeout(function () {
+      loadImages();
+      result.textContent = `Okay try your best again`;
+    }, 2000);
   }
 }
